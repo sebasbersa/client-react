@@ -1,23 +1,38 @@
-import React from 'react';
-import {Route} from 'react-router-dom';
+import React, {useState} from 'react';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import { Layout } from 'antd';
+import MenuTop from '../component/admin/menuTop';
+import MenuSider from '../component/admin/MenuSider';
+import AdminSignIn from "../pages/Admin/SignIn";
 
 import "./LayoutAdmin.scss"
-import routes from '../config/routes';
 
 export default function LayoutAdmin(props){
     const { routes } = props;
+    const [menuCollapsed, setMenuCollapsed] = useState(true);
     const {Header, Content, Footer} = Layout;
+    const user = null;
+
+    if(!user){
+        return (
+            <>
+            <Route path="/admin/login" component={AdminSignIn} />
+            <Redirect to="/admin/login"/>
+            </>
+        )
+    }
 
     return (
         <Layout>
-            <h2>Menu sidebar Admin</h2>
-            <Layout>
-                <Header>Header</Header>
-                <Content>
-                    <LoadRouter routes={routes}/>
+        <MenuSider menuCollapsed={menuCollapsed} />
+            <Layout className="layout-admin" style={{marginLeft:menuCollapsed ? "80px" : "200px" }}>
+                <Header className="layout-admin__header">
+                    <MenuTop menuCollapsed={menuCollapsed} setMenuCollapsed={setMenuCollapsed} />
+                </Header>
+                <Content className="layout-admin__content" >
+                    <LoadRoutes routes={routes}/>
                 </Content>
-                <Footer>
+                <Footer className="layout-admin__footer">
                     Sebastian Berrios 2021
                 </Footer>
             </Layout>
@@ -25,13 +40,17 @@ export default function LayoutAdmin(props){
     )
 }
 
-function LoadRouter({routes}){ //es lo mismo que destructuring
-    return routes.map((route, index)=>(
-        <Route 
-            key={index}
-            path={route.path}
-            exact={route.exact}
-            component={route.component}
-        />
-    ))
+function LoadRoutes({routes}){ //es lo mismo que destructuring
+    return (
+        <Switch>
+            {routes.map((route, index)=>(
+            <Route 
+                key={index}
+                path={route.path}
+                exact={route.exact}
+                component={route.component}
+            />
+            ))}
+        </Switch>
+    );    
 }

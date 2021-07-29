@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import { Layout } from 'antd';
 
 import "./LayoutBasic.scss"
@@ -13,7 +13,7 @@ export default function LayoutBasic(props){
             <Layout>
                 <Header>Header</Header>
                 <Content>
-                    <LoadRouter routes={routes}/>
+                    <LoadRoutes routes={routes}/>
                 </Content>
                 <Footer>
                     Sebastian Berrios 2021
@@ -23,13 +23,17 @@ export default function LayoutBasic(props){
     )
 }
 
-function LoadRouter({routes}){ //es lo mismo que destructuring
-    return routes.map((route, index)=>(
-        <Route 
-            key={index}
-            path={route.path}
-            exact={route.exact}
-            component={route.component}
-        />
-    ))
+function LoadRoutes({routes}){ //es lo mismo que destructuring
+    return (
+        <Switch>
+            {routes.map((route, index)=>(
+            <Route 
+                key={index}
+                path={route.path}
+                exact={route.exact}
+                component={route.component}
+            />
+            ))}
+        </Switch>
+    );
 }
