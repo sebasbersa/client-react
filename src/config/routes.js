@@ -1,5 +1,4 @@
 //Layout
-import { lazy } from "react";
 import LayoutAdmin from "../layouts/LayoutAdmin";
 import LayoutBasic from "../layouts/LayoutBasic";
 // Admin pages

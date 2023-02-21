@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 import MenuTop from '../component/admin/menuTop';
 import MenuSider from '../component/admin/MenuSider';
 import AdminSignIn from "../pages/Admin/SignIn";
+import useAuth from '../hooks/useAuth';
 
 import "./LayoutAdmin.scss"
 
@@ -11,8 +12,10 @@ export default function LayoutAdmin(props){
     const { routes } = props;
     const [menuCollapsed, setMenuCollapsed] = useState(true);
     const {Header, Content, Footer} = Layout;
-    const user = null;
+    const {user, isLoading} = useAuth;
 
+    console.log(user);
+    
     if(!user){
         return (
             <>

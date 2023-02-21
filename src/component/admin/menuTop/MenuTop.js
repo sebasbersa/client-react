@@ -3,7 +3,6 @@ import SebastianLogo from '../../../assets/img/png/logo.png';
 import { Button,  } from "antd";
 import {MenuOutlined , CloseOutlined , PoweroffOutlined }from '@ant-design/icons';
 import "./MenuTop.scss";
-import { log } from 'async';
 
 export default function MenuTop(props){
     const {menuCollapsed, setMenuCollapsed} = props;
